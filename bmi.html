@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор ИМТ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h2>Калькулятор ИМТ</h2>
+    <label for="weight">Вес (кг):</label>
+    <input type="number" id="weight" min="0" step="0.1">
+    <br><br>
+    <label for="height">Рост (м):</label>
+    <input type="number" id="height" min="0" step="0.01">
+    <br><br>
+    <button onclick="calculateBMI()">Рассчитать</button>
+    <br><br>
+    <div id="result"></div>
+</div>
+
+<script>
+    function calculateBMI() {
+        var weight = parseFloat(document.getElementById('weight').value);
+        var height = parseFloat(document.getElementById('height').value);
+
+        if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+            document.getElementById('result').innerHTML = 'Пожалуйста, введите корректные значения.';
+            return;
+        }
+
+        var bmi = weight / (height * height);
+        var bmiText;
+        if (bmi < 18.5) {
+            bmiText = 'Недостаточный вес';
+        } else if (bmi >= 18.5 && bmi < 25) {
+            bmiText = 'Нормальный вес';
+        } else if (bmi >= 25 && bmi < 30) {
+            bmiText = 'Избыточный вес';
+        } else {
+            bmiText = 'Ожирение';
+        }
+
+        document.getElementById('result').innerHTML = 'Ваш ИМТ: ' + bmi.toFixed(2) + ' - ' + bmiText;
+    }
+</script>
+</body>
+</html>
